@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>原神启动动画效果</title>
+    <title>原神 启动</title>
     <style>
       html,
       body {
@@ -13,10 +13,6 @@
       * {
         margin: 0;
         padding: 0;
-      }
-      .container {
-        background-color: aqua;
-        height: 680px;
       }
       .overlay {
         position: absolute;
@@ -48,32 +44,46 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+      @media (max-width: 960px) {
+        .image {
+          width: 150px;
+          top: 35%;
+          left: 30%;
+        }
+      }
     </style>
   </head>
   <body>
     <div>
       <div class="container">
-        <!-- 为了使效果更清晰在外面加的容器 -->
-        <button class="mybtn" onclick="start()">原神启动</button>
+        <button class="mybtn" id="mybtn" onclick="start()">预览模型</button>
         <div class="overlay"></div>
-        <img class="image" src="./docs/public/icons/yuanshen.svg" />
+        <img class="image" src="./yuanshen.svg" />
       </div>
     </div>
 
     <script>
+      let n = 0
+      let btn = document.getElementById('mybtn')
+
       function start() {
+        n++
         const overlay = document.querySelector('.overlay')
         const myimage = document.querySelector('.image')
         overlay.style.visibility = 'visible'
         myimage.style.visibility = 'visible'
         overlay.style.opacity = 1 // 白色背景渐显
-
         setTimeout(() => {
           //这里有一个回调地狱，期待大佬能够改进一下
           myimage.style.opacity = 1
           setTimeout(() => {
             overlay.style.opacity = 0
             myimage.style.opacity = 0 //图片和白色背景一起渐隐
+            if (n > 1) {
+              btn.textContent = '一眼鉴定：玩原神玩的'
+            } else {
+              btn.textContent = '你上当了'
+            }
             setTimeout(() => {
               this.fadeOut = false
               overlay.style.visibility = 'hidden'
